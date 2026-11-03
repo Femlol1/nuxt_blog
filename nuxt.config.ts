@@ -6,6 +6,10 @@ export default defineNuxtConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
+	runtimeConfig: {
+		geminiApiKey: "",
+		geminiModel: "gemini-3.8-flash",
+	},
 });
 
 import tailwindcss from "@tailwindcss/vite";
