@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@google/genai": "^2.32.0",
     "@tailwindcss/vite": "^4.3.4",
     "nuxt": "^4.6.3",
     "papaparse": "^5.7.0",
