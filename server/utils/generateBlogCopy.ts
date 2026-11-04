@@ -103,6 +103,11 @@ export async function generateBlogCopy(
         where supported. Include geography only when supported by the data.
         Avoid generic titles such as "Exploring the Company Dataset".
 
+        "Unknown" and "Not provided" mean missing information.
+        Do not infer a funding stage, location or employee count from missing fields.
+        If descriptions and industry information are insufficient, use a generic
+        company-dataset title rather than guessing an industry.
+
         If the source identifies companies as fictional, synthetic or demo records,
         state that clearly in the title and introduction. Never present them as real businesses.
 

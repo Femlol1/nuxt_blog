@@ -66,10 +66,11 @@ async function uploadCsv() {
 		</h2>
 
 		<p id="upload-help" class="mt-3 text-sm leading-relaxed text-slate-600">
-			Choose a CSV up to 1 MB with the same columns as the sample: Rank,
-			Company, Region, Stage, Employees, Total Raised, Description, Website and
-			Industries. Fundraising amounts must be in GBP. This step validates your
-			file without saving it.
+			Upload a comma-separated UTF-8 CSV up to 1 MB and 1,000 companies. Company
+			and Total Raised are required; common header aliases are supported. Other
+			descriptive columns are optional. Amounts must be in GBP. Ranks are
+			calculated from fundraising, with ties retaining file order. Uploading
+			sends the data to Gemini and saves a publicly accessible article.
 		</p>
 
 		<form class="mt-5 space-y-4" @submit.prevent="uploadCsv">
