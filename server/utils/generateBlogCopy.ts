@@ -103,6 +103,9 @@ export async function generateBlogCopy(
         where supported. Include geography only when supported by the data.
         Avoid generic titles such as "Exploring the Company Dataset".
 
+        If the source identifies companies as fictional, synthetic or demo records,
+        state that clearly in the title and introduction. Never present them as real businesses.
+
         Use plain text within every field, with no HTML or Markdown.
         Keep each section to one short paragraph.
       `,

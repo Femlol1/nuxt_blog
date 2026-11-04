@@ -1,0 +1,4 @@
+Rank,Company,Region,Stage,Employees,Total Raised,Description,Website,Industries
+1,Demo Health Alpha,London,Seed,10-24,"£6,000,000",Fictional test company developing remote patient monitoring software.,https://example.com/alpha,Healthtech; Remote patient monitoring
+2,Demo Health Beta,North West,Seed,5-9,"£3,000,000",Fictional test company developing digital appointment software for clinics.,https://example.com/beta,Healthtech; Healthcare software
+3,Demo Health Gamma,London,Seed,5-9,"£1,500,000",Fictional test company developing medication management software.,https://example.com/gamma,Healthtech; Digital health
