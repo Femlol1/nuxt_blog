@@ -9,6 +9,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		geminiApiKey: "",
 		geminiModel: "gemini-3.8-flash",
+		mongodbUri: "",
+		mongodbDatabase: "companyinsights",
 	},
 });
 

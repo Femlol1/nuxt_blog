@@ -40,7 +40,7 @@ async function uploadCsv() {
 			body: formData,
 		});
 
-		successMessage.value = `CSV validated successfully: ${result.companyCount} companies found.`;
+		successMessage.value = `Blog saved with ${result.companyCount} companies. Page path: ${result.url}`;
 	} catch (error) {
 		errorMessage.value =
 			error instanceof FetchError
@@ -93,7 +93,7 @@ async function uploadCsv() {
 				:disabled="uploading || !selectedFile"
 				class="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-50"
 			>
-				{{ uploading ? "Validating…" : "Validate CSV" }}
+				{{ uploading ? "Generating and saving…" : "Generate blog" }}
 			</button>
 
 			<p v-if="errorMessage" role="alert" class="text-sm text-red-700">

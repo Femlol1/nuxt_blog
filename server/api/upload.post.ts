@@ -1,4 +1,6 @@
 import { createError, defineEventHandler, readMultipartFormData } from "h3";
+import { saveBlog } from "../utils/blogs";
+import { generateBlogCopy } from "../utils/generateBlogCopy";
 import { parseCompanies } from "../utils/parseCompanies";
 
 export default defineEventHandler(async (event) => {
@@ -26,18 +28,44 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	try {
-		const companies = parseCompanies(file.data.toString("utf-8"));
+	let companies: ReturnType<typeof parseCompanies>;
 
-		return {
-			companyCount: companies.length,
-		};
+	try {
+		companies = parseCompanies(file.data.toString("utf-8"));
 	} catch (error) {
 		throw createError({
 			statusCode: 400,
 			statusMessage: "CSV validation failed.",
 			data: {
 				message: error instanceof Error ? error.message : "Invalid CSV.",
+			},
+		});
+	}
+
+	let copy: Awaited<ReturnType<typeof generateBlogCopy>>;
+
+	try {
+		copy = await generateBlogCopy(companies);
+	} catch {
+		throw createError({
+			statusCode: 502,
+			statusMessage: "Blog generation failed.",
+			data: {
+				message:
+					"The AI service could not generate the blog. Please try again shortly.",
+			},
+		});
+	}
+
+	try {
+		return await saveBlog(companies, copy);
+	} catch {
+		throw createError({
+			statusCode: 503,
+			statusMessage: "Blog could not be saved.",
+			data: {
+				message:
+					"Database saving failed. Please check database write permissions and connectivity.",
 			},
 		});
 	}
