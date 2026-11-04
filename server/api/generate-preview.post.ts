@@ -20,7 +20,7 @@ export default defineEventHandler(async () => {
 
 	try {
 		const companies = parseCompanies(csv);
-		return await generateBlogCopy(companies);
+		return await generateBlogCopy(companies, "Fintech");
 	} catch (error) {
 		const config = useRuntimeConfig();
 

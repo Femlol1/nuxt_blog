@@ -12,6 +12,7 @@ function selectFile(event: Event) {
 	errorMessage.value = "";
 	successMessage.value = "";
 }
+const industry = ref("");
 
 async function uploadCsv() {
 	errorMessage.value = "";
@@ -34,13 +35,14 @@ async function uploadCsv() {
 	try {
 		const formData = new FormData();
 		formData.append("file", file);
+		formData.append("industry", industry.value.trim());
 
 		const result = await $fetch("/api/upload", {
 			method: "POST",
 			body: formData,
 		});
 
-		successMessage.value = `Blog saved with ${result.companyCount} companies. Page path: ${result.url}`;
+		await navigateTo(result.url);
 	} catch (error) {
 		errorMessage.value =
 			error instanceof FetchError
@@ -71,6 +73,27 @@ async function uploadCsv() {
 		</p>
 
 		<form class="mt-5 space-y-4" @submit.prevent="uploadCsv">
+			<div>
+				<label for="industry" class="mb-2 block text-sm font-medium">
+					Industry (optional)
+				</label>
+
+				<input
+					id="industry"
+					v-model="industry"
+					type="text"
+					maxlength="80"
+					placeholder="For example, fintech or healthtech"
+					:disabled="uploading"
+					aria-describedby="industry-help"
+					class="block w-full rounded-lg border border-slate-300 p-3"
+				/>
+
+				<p id="industry-help" class="mt-2 text-sm text-slate-600">
+					Helps focus the article. Leave blank to infer the industry from the
+					CSV.
+				</p>
+			</div>
 			<div>
 				<label for="company-csv" class="mb-2 block text-sm font-medium">
 					Company CSV

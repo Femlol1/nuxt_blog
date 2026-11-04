@@ -5,6 +5,18 @@ import { parseCompanies } from "../utils/parseCompanies";
 
 export default defineEventHandler(async (event) => {
 	const parts = await readMultipartFormData(event);
+	const industry =
+		parts
+			?.find((part) => part.name === "industry")
+			?.data.toString("utf-8")
+			.trim() ?? "";
+
+	if (industry.length > 80) {
+		throw createError({
+			statusCode: 400,
+			statusMessage: "Industry must be 80 characters or fewer.",
+		});
+	}
 	const file = parts?.find((part) => part.name === "file" && part.filename);
 
 	if (!file) {
@@ -45,7 +57,7 @@ export default defineEventHandler(async (event) => {
 	let copy: Awaited<ReturnType<typeof generateBlogCopy>>;
 
 	try {
-		copy = await generateBlogCopy(companies);
+		copy = await generateBlogCopy(companies, industry);
 	} catch {
 		throw createError({
 			statusCode: 502,
